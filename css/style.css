@@ -12,7 +12,7 @@ h1 {
 	margin: 0;
 }
 
-h2 {
+h2, .gameTotal {
 	font-family: "Raleway", sans-serif;
 	color: #0D2C40;
 	letter-spacing: 1px;

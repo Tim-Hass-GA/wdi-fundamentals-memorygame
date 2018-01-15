@@ -1,5 +1,5 @@
 // tim hass
-// 2018.1.12
+// 2018.1.14
 
 var cards = [
 {
@@ -24,10 +24,15 @@ var cards = [
 }
 ];
 var cardsInPlay = [];
+var playersScore = 0;
 
 function checkForMatch(){
 	if (cardsInPlay[0] === cardsInPlay[1]){
 			alert("You found a match!");
+			playersScore += 1;
+			//console.log(playersScore);
+			document.querySelector(".gameTotal").innerHTML = playersScore;
+
 		} else {
 			alert("Sorry, try Again.")
 	}
@@ -43,11 +48,19 @@ function flipCard(){
 
 	if (cardsInPlay.length === 2){
 		checkForMatch();
-	}
+	} else if (cardsInPlay.length > 2) {
+		alert("We need to reset the game.");
+		clearGame();
+	} 
 }
 
 function clearGame(){
-
+	var resetCards = document.querySelectorAll("img");
+	for (var i = 0; i < resetCards.length; i++){
+		resetCards[i].setAttribute("src", "images/back.png");
+	}
+	// empty the cardsInPlay array
+		cardsInPlay = [];
 }
 
 function createGameboard(){
@@ -58,15 +71,20 @@ function createGameboard(){
 		cardElement.addEventListener("click", flipCard);
 		document.getElementById("game-board").appendChild(cardElement);
 	}
-	
+
+	var gameTotal = document.createElement("p");
+	gameTotal.className = "gameTotal";
+	gameTotal.textContent = playersScore;
+	document.getElementById("game-board").appendChild(gameTotal);
+
 	var reset = document.createElement("button");
 	reset.textContent = "reset";
 	reset.setAttribute("name", "reset");
 	reset.className = "instructions";
 	reset.addEventListener("click", clearGame);
 	document.getElementById("game-board").appendChild(reset);
+
 }
 
-// flipCard(0);
-// flipCard(2);
+//initate the createGameboard function
 createGameboard();
